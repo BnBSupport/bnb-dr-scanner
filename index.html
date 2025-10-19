@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BnB QR Scanner</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    #reader { width: 100%; height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="reader"></div>
+  <script>
+    const scanner = new Html5Qrcode("reader");
+    Html5Qrcode.getCameras().then(devices => {
+      if (devices.length) {
+        scanner.start(
+          devices[0].id,
+          { fps: 10, qrbox: 250 },
+          (decodedText) => {
+            alert("Scanned: " + decodedText);
+            scanner.stop();
+          },
+          (error) => {}
+        );
+      }
+    });
+  </script>
+</body>
+</html>
